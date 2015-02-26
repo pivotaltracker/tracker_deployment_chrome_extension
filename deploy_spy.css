@@ -1,0 +1,12 @@
+.deployments {
+  padding: 4px 5px;
+  width: 278px;
+
+  background-color: #F6F6F6;
+  border: 1px solid #A9ACB3;
+  border-radius: 3px;
+}
+
+.deployments strong {
+  font-weight: bold;
+}
