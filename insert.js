@@ -78,7 +78,6 @@ function modifyExpandedStory(e) {
 
           // markup individual comments
           _.each($('.story_' + storyId + ' .activity.github'), function(activity) {
-            debugger
             var activityText = $(activity).text();
             var shaRegex = /commit\/([a-z0-9A-Z]+)/;
             var sha = shaRegex.exec(activityText)[1];
