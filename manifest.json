@@ -8,6 +8,11 @@
     "default_popup": "popup.html",
     "default_title": "Configure Deploy Spy"
   },
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
   "options_page": "options.html",
   "content_scripts": [ {
     "js": [ "jquery-2.1.3.min.js", "underscore-min.js", "insert.js" ],
