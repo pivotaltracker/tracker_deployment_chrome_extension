@@ -1,5 +1,5 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Deploy Spy for Pivotal Tracker",
   "description": "This extension adds data to Pivotal Tracker stories showing what environments they have been deployed to.",
   "version": "0.1",
