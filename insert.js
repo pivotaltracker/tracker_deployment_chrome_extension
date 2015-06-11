@@ -94,5 +94,7 @@ function modifyExpandedStory(e) {
 }
 
 initializeData();
+setInterval(initializeData, 1 * 60 * 1000); // repeat every minute
+
 document.body.addEventListener('click', modifyExpandedStory, true);
 document.body.addEventListener('dblclick', modifyExpandedStory, true);
