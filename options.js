@@ -38,7 +38,7 @@ function restore_options() {
       var name = key,
           url = items.storedEnvironments[key];
 
-      $('#deploy_spy_configuration')[0]['name_'+index].value = key;
+      $('#deploy_spy_configuration')[0]['name_'+index].value = name;
       $('#deploy_spy_configuration')[0]['url_'+index].value = url;
 
       index++;
@@ -46,5 +46,27 @@ function restore_options() {
   });
 }
 
+function import_options() {
+  // preserve existing values as long as they are not named
+  // the same as an imported one
+  var environments;
+  chrome.storage.sync.get({
+    storedEnvironments: {}
+  }, function(items) {
+    environments = items.storedEnvironments;
+  });
+
+  var url = $('#import_url')[0].value;
+
+  $.getJSON(url, function(importedEnvironments) {
+    _.extend(environments, importedEnvironments);
+    chrome.storage.sync.set({storedEnvironments: environments});
+  });
+
+  restore_options();
+  return false;
+}
+
 document.addEventListener('DOMContentLoaded', restore_options);
 document.getElementById('save').addEventListener('click', save_options);
+document.getElementById('import').addEventListener('click', import_options);

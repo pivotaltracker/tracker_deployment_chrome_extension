@@ -5,6 +5,9 @@ this extension to help you figure out exactly where your tracker stories are dep
 
 In order to use this plugin you will need to provide a specifically formatted JSON file for each environment
 your app can be deployed to.  For example, let's say you you have three environments: **staging, beta, and test**.
+
+# Extension configuration
+
 You would configure the extension with these three environments like so:
 
 | Environment   | URL**                                    |
@@ -14,6 +17,19 @@ You would configure the extension with these three environments like so:
 | testing       | https://test.example.com/commits.json    |
 
 _**Note: The destination URLs must be served via HTTPS._
+
+Alternately, you can import a `deploy_spy_config.json` from
+a known hosted location, which
+is a json object containing environments and URLs, e.g.:
+
+```
+{
+  "beta": "https://beta.example.com/commits.json",
+  "staging": "https://staging.example.com/commits.json"
+}
+```
+
+## Commits JSON format
 
 Then either manually, as part of your deployment scripts, etc. you update the commits.json file with recent commit
 data.  For my purposes, I just generated data for all the commits within the last 30 days.  [This sample
