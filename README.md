@@ -6,7 +6,19 @@ this extension to help you figure out exactly where your tracker stories are dep
 In order to use this plugin you will need to provide a specifically formatted JSON file for each environment
 your app can be deployed to.  For example, let's say you you have three environments: **staging, beta, and test**.
 
+# Installation
+
+You can get it from the chrome store, or if you just want the local/dev
+version:
+
+* Clone this repo locally
+* Go to Chrome Preferences > Extensions tab
+* Click "Developer Mode" Checkbox
+* "Load Unpacked Extension" 
+
 # Extension configuration
+
+It can be configured via the "Options" link on the Chrome Extension entry.
 
 You would configure the extension with these three environments like so:
 
