@@ -1,9 +1,9 @@
 function save_options() {
-  var form = $('#deploy_spy_configuration'),
-      tmpEnvironments = {};
+  const form = $('#deploy_spy_configuration');
+  const tmpEnvironments = {};
 
-  _.each(form.serializeArray(), function(input){
-    var index = input.name.split("_")[1];
+  for (let input of form.serializeArray()) {
+    let index = input.name.split("_")[1];
     if (!tmpEnvironments[index]) {
       tmpEnvironments[index] = {};
     }
@@ -13,17 +13,17 @@ function save_options() {
     } else if (input.name.match("url")) {
       tmpEnvironments[index].url = input.value;
     }
-  });
+  }
 
-  var environments = {};
+  const environments = {};
 
-  _.each(_.keys(tmpEnvironments), function(key) {
-    var data = tmpEnvironments[key];
+  for (let key of Object.keys(tmpEnvironments)) {
+    let data = tmpEnvironments[key];
 
     if ((data.name && data.name.length) && (data.url && data.url.length)) {
       environments[data.name] = data.url;
     }
-  });
+  }
 
   chrome.storage.sync.set({storedEnvironments: environments});
 }
@@ -38,17 +38,16 @@ function restore_options() {
   chrome.storage.sync.get({
     storedEnvironments: {}
   }, function(items) {
-    var index = 1;
-    _.each(_.keys(items.storedEnvironments), function(key){
+    let index = 1;
+    for (let key of Object.keys(items.storedEnvironments)) {
+      let url = items.storedEnvironments[key];
+      let configElement = $('#deploy_spy_configuration')[0];
 
-      var name = key,
-          url = items.storedEnvironments[key];
-
-      $('#deploy_spy_configuration')[0]['name_'+index].value = name;
-      $('#deploy_spy_configuration')[0]['url_'+index].value = url;
+      configElement[`name_${index}`].value = key;
+      configElement[`url_${index}`].value = url;
 
       index++;
-    });
+    }
   });
 }
 
@@ -63,19 +62,19 @@ function clear_options() {
 function import_options() {
   // preserve existing values as long as they are not named
   // the same as an imported one
-  var environments;
+  let environments;
   chrome.storage.sync.get({
     storedEnvironments: {}
   }, function(items) {
     environments = items.storedEnvironments;
   });
 
-  var url = $('#import_url')[0].value;
+  let url = $('#import_url')[0].value;
   chrome.storage.sync.set({importUrl: url});
 
   $.getJSON(url)
     .done(function(importedEnvironments) {
-      _.extend(environments, importedEnvironments);
+      Object.assign(environments, importedEnvironments);
       chrome.storage.sync.set({storedEnvironments: environments});
       restore_options();
     })

@@ -1,98 +1,93 @@
-var deploymentJSON = {};
+const deploymentJSON = {};
 
 function initializeData() {
-  var environments,
-      deferreds = [];
-
-  function loadJSON(enviroment, url) {
+  function loadJSON(environment, url) {
     $.getJSON(url, function(data) {
-      deploymentJSON[enviroment] = data;
+      deploymentJSON[environment] = data;
     });
   }
 
   chrome.storage.sync.get({
     storedEnvironments: {}
   }, function(items) {
-    _.each(_.keys(items.storedEnvironments), function(key) {
+    for (let key of Object.keys(items.storedEnvironments)) {
       loadJSON(key, items.storedEnvironments[key]);
-    });
+    }
   });
 }
 
 
 function modifyExpandedStory(e) {
   function deploymentHTML(environments) {
-    var html = `
-        <section class="deployments full">
-            <div>
-                <h4>Deployed To</h4>
-                <div class="deploymentsContainer">
-                    ${environments.join(', ')}
-                </div>
-            </div>
-        </section>`;
-
-    return html;
+    return `
+      <section class="deployments full">
+          <div>
+              <h4>Deployed To</h4>
+              <div class="deploymentsContainer">
+                  ${environments.join(', ')}
+              </div>
+          </div>
+      </section>`;
   }
 
   function calculateEnvironmentsForStory(storyId) {
-    var environments = [];
+    const environments = [];
 
-    _.each(_.keys(deploymentJSON), function(environment) {
+    for (let environment of Object.keys(deploymentJSON)) {
       if (deploymentJSON[environment][storyId]) {
         environments.push(environment);
       }
-    });
+    }
 
     return environments;
   }
 
-  function calculateEnvironmentsForSha(potentialEnvironments, storyId, sha) {
-    var enviroments = [];
-
-    _.each(potentialEnvironments, function(environment) {
-      var shasForStoryInEnvironment = deploymentJSON[environment][storyId];
-      if (_.include(shasForStoryInEnvironment, sha)) {
-        enviroments.push(environment);
-      }
-    });
-
-    return enviroments;
-  }
+  // function calculateEnvironmentsForSha(potentialEnvironments, storyId, sha) {
+  //   const environments = [];
+  //
+  //   for (let environment of potentialEnvironments) {
+  //     let shasForStoryInEnvironment = deploymentJSON[environment][storyId];
+  //     if (shasForStoryInEnvironment.includes(sha)) {
+  //       environments.push(environment);
+  //     }
+  //   }
+  //
+  //   return environments;
+  // }
 
   // find the top node
-  var storyNode = $(e.target).closest('div.story');
+  const storyNode = $(e.target).closest('div.story');
 
   // if node contains a preview, we are expanding
   if (storyNode.find('.preview').length !== 0) {
-    var storyId = storyNode.data('id');
+    const storyId = storyNode.data('id');
 
     setTimeout(function(){
-      var insertSelector = `.story_${storyId} .code`,
-          deploymentSelector = `.story_${storyId} .deployments`;
+      const insertSelector = `.story_${storyId} .code`;
+      const deploymentSelector = `.story_${storyId} .deployments`;
 
-      // ensure there is an expanded story and we havent already marked stuff up
+      // ensure there is an expanded story and we haven't already marked stuff up
       if($(insertSelector).length !== 0 && $(deploymentSelector).length === 0) {
 
-        _.debounce(initializeData, 3000);
+        setTimeout(initializeData, 3000);
 
-        var environments = calculateEnvironmentsForStory(storyId);
+        const environments = calculateEnvironmentsForStory(storyId);
 
         if (environments.length > 0) {
           // markup story
           $(deploymentHTML(environments)).insertAfter($(insertSelector));
 
           // markup individual comments (leave broken for now)
-          _.each($(`.story_${storyId} .activity.github`), function(activity) {
-            var activityText = $(activity).text();
-            var shaRegex = /commit\/([a-z0-9A-Z]+)/;
-            var sha = shaRegex.exec(activityText)[1];
-
-            var commitEnviroments = calculateEnvironmentsForSha(environments, storyId, sha);
-            if (commitEnviroments.length > 0) {
-              $(deploymentHTML(commitEnviroments)).insertAfter($(activity).find('.url'));
-            }
-          });
+          // for (let activity of $(`.story_${storyId} .activity.github`)) {
+          //   const activityText = $(activity).text();
+          //   const shaRegex = /commit\/([a-z0-9A-Z]+)/;
+          //   const sha = shaRegex.exec(activityText)[1];
+          //
+          //   const commitEnviroments = calculateEnvironmentsForSha(environments, storyId, sha);
+          //   if (commitEnviroments.length > 0) {
+          //     $(deploymentHTML(commitEnviroments)).insertAfter($(activity).find('.url'));
+          //   }
+          // }
         }
       }
     }, 10);
