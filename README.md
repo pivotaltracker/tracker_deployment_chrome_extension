@@ -67,6 +67,3 @@ Once configured correctly the extension will insert data about the deployment en
 
 This shows the aggregate of all environments any part of the story is deployed to under the story info box:
 ![Story Detail](https://github.com/pivotaltracker/tracker_deployment_chrome_extension/blob/master/story_detail.png "Story Detail")
-
-This shows the aggregate of all environments a specific commit is deployed to:
-![Commit Detail](https://github.com/pivotaltracker/tracker_deployment_chrome_extension/blob/master/commit_detail.png "Commit Detail")
