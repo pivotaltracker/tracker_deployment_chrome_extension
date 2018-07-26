@@ -1,17 +1,16 @@
-.deployments {
-  padding: 4px 5px;
-  width: 278px;
-
-  background-color: #F3F3D1;
-  border: 1px solid #A9ACB3;
-  border-radius: 3px;
+.deployments.full {
+  margin: 0 10px;
 }
 
-.deployments strong {
-  font-weight: bold;
-}
-
-.activity.github .deployments {
-  margin-top: 6px;
-  width: 253px;
+.deployments.full .deploymentsContainer {
+  background-color: #ffffd0;
+  border-radius: 2px;
+  border: 1px solid #ecedef;
+  font-size: 12px;
+  line-height: 1.4;
+  margin-bottom: 4px;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 8px 8px 12px 8px;
+  font-weight: 600;
 }

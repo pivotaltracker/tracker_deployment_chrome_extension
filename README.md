@@ -12,9 +12,9 @@ You can get it from the chrome store, or if you just want the local/dev
 version:
 
 * Clone this repo locally
-* Go to Chrome Preferences > Extensions tab
-* Click "Developer Mode" Checkbox
-* "Load Unpacked Extension" 
+* Open the Chrome kebab menu and go to More Tools > Extensions
+* Ensure "Developer mode" toggle is turned on
+* Click "Load Unpacked" and select the location that this repo was cloned to in the open dialog
 
 # Extension configuration
 

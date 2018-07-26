@@ -22,9 +22,15 @@ function initializeData() {
 
 function modifyExpandedStory(e) {
   function deploymentHTML(environments) {
-    var html = '<div class="deployments">' +
-                '<strong>Deployed To:</strong> ' + environments.join(', ') +
-               '</div>';
+    var html = `
+        <section class="deployments full">
+            <div>
+                <h4>Deployed To</h4>
+                <div class="deploymentsContainer">
+                    ${environments.join(', ')}
+                </div>
+            </div>
+        </section>`;
 
     return html;
   }
@@ -62,8 +68,8 @@ function modifyExpandedStory(e) {
     var storyId = storyNode.data('id');
 
     setTimeout(function(){
-      var insertSelector = '.story_'+storyId+' .model_details',
-          deploymentSelector = '.story_'+storyId+' .deployments';
+      var insertSelector = `.story_${storyId} .code`,
+          deploymentSelector = `.story_${storyId} .deployments`;
 
       // ensure there is an expanded story and we havent already marked stuff up
       if($(insertSelector).length !== 0 && $(deploymentSelector).length === 0) {
@@ -76,8 +82,8 @@ function modifyExpandedStory(e) {
           // markup story
           $(deploymentHTML(environments)).insertAfter($(insertSelector));
 
-          // markup individual comments
-          _.each($('.story_' + storyId + ' .activity.github'), function(activity) {
+          // markup individual comments (leave broken for now)
+          _.each($(`.story_${storyId} .activity.github`), function(activity) {
             var activityText = $(activity).text();
             var shaRegex = /commit\/([a-z0-9A-Z]+)/;
             var sha = shaRegex.exec(activityText)[1];
