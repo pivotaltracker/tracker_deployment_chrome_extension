@@ -43,7 +43,7 @@ is a json object containing environments and URLs, e.g.:
 
 Then either manually, as part of your deployment scripts, etc. update the commits.json file with recent commit
 data.  For example, generate data for all the commits within the last 30 days.  [This sample
-rake task](sample.rake) is close to what Tracker using to generate this data.
+rake task](sample.rake) is close to what Tracker is using to generate this data.
 
 The data should be valid JSON with a format like this:
 
