@@ -4,7 +4,7 @@ for [Pivotal Tracker](http://www.pivotaltracker.com) to label git commits with T
 this extension to help you figure out exactly where your Tracker stories are deployed!
 
 In order to use this plugin, you will need to provide a specifically formatted JSON file for each environment
-your app can be deployed to.  For example, let's say you you have three environments: **staging, beta, and test**.
+your app can be deployed to.  For example, let's say you have three environments: **staging, beta, and test**.
 
 # Installation
 
