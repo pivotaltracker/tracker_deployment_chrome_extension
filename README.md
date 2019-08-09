@@ -8,7 +8,7 @@ your app can be deployed to.  For example, let's say you you have three environm
 
 # Installation
 
-Get Deply Spy from the Chrome store, or if you want the local/dev
+Get Deploy Spy from the Chrome store, or if you want the local/dev
 version:
 
 * Clone this repo locally
