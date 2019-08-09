@@ -3,9 +3,7 @@ If you are using the [Github's service hook](http://www.pivotaltracker.com/commu
 for [Pivotal Tracker](http://www.pivotaltracker.com) to label git commits with Tracker stories, then you can use
 this extension to help you figure out exactly where your Tracker stories are deployed!
 
-In order to use this plugin, you will need to provide a specifically formatted JSON file for each environment
-your app can be deployed to.  For example, let's say you have three environments: **staging, beta, and test**.
-
+In order to use this plugin, you will need to provide a specifically formatted JSON file for each environment your app can be deployed to. For example, let's say you have three environments: **staging, beta, and test**. When you deploy new code to each of these environments, you'll also deploy the JSON file containing a map of Pivotal Tracker story ids to commit SHAs. Deploy Spy will be configured with a list of URLs for each environment so that it can find these files. Then, when you open a story in Pivotal Tracker, you'll see a section in the details showing what environment this story is deployed to.
 # Installation
 
 Get Deploy Spy from the Chrome store, or if you want the local/dev
